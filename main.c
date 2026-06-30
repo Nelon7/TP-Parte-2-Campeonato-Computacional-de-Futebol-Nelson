@@ -22,7 +22,7 @@ void pausa(){
 }
 
 int main(){
-  BDPartida *partidas = carregar_partidas("partidas_parcial.csv"); //carega as partidas do BD
+  BDPartida *partidas = carregar_partidas("partidas_vazio.csv"); //carega as partidas do BD
   if(partidas == NULL){
     return 1; //Termina o codigo em caso de erro ao carregar partidas
   }
@@ -37,6 +37,11 @@ int main(){
   char menuS = ' '; //menu secundário
   char busca[15]; // utilizada para buscas de time/partidas
   int buscaID;
+  int newid = 0;
+
+  if(partidas->first != NULL){
+    newid = partidas->first->id+1;
+  }
 
   while(menuP != 'q' && menuP != 'Q'){
     //Menu principal
@@ -109,7 +114,7 @@ int main(){
         break;
       //Inserir partida
       case '5':
-        inserir_partida(partidas,times,partidas->first->id+1);
+        inserir_partida(partidas,times,newid);
         recalcular_times(times,partidas);
 
         pausa();
